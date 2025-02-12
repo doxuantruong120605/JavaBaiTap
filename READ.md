@@ -39,3 +39,31 @@ chuungs ta sẽ phải thực hiện các collection API như tnao ?
     -Chức Năng : Luưu các account theo độ ưu tiên (vd: Xắp xếp giảm  dần theo số dư), giúp ta biết ngay
     ngay tài khoản có số dư lớn nhất
     -PriorityQueue : cho phép lấy phần tử có độ ưu tiên trung bình là 0(log n)
+II. JDBC :
+1. JDBC là gì ?
+   - JDBC (Java Database Connectivity) là một API của Java cho phép các lập trình viên truy cập và thao tác với cơ sở dữ liệu
+   - JDBC cung cấp một tập hợp các lớp và giao diện để kết nối với cơ sở dữ liệu, thực hiện các truy vấn và cập nhật dữ liệu
+   - JDBC cung cấp một cách tiêu chuẩn để kết nối với bất kỳ cơ sở dữ liệu nào
+   + NoSQL : Dùng cho khi sd đến cơ sở dữ lieeu BigData ví dụ được sd trong fb
+   + SQL : Dùng cho cơ sở dữ liệu quan hệ trúng thường được dùng cho truy vết thông tin dùng trong bans 
+    hàng (câần có sự ràng buộc với nhau)
+   - Connect to database có hai phương thức để kết nối với nó :
+   + Statement va PreparedStatement nên dùng PreparedStatement vì nó an toàn hơn khó bị tấn
+   công SQL Injection hơn là khi sử dụng statement
+   - 1NF 2NF 3NF là : Các bước chuẩn hóa cơ sở dữ liệu (Database Normalization) để giảm thiểu dữ liệu trùng lặp
+    và giữ cho dữ liệu cơ sở dữ liệu có tính nhất quán
+   + 1NF : Fist Nomal Form : dạng chuẩn 1NF nếu các thuộc tính chỉ nhận giá trị tại moot bản ghi
+   hay noi một cách khác mọi thuộc tính đều là đơn trị,để đưa ve chuẩn 1 có 2 cacách :
+    - Tách bảng : Tách bảng ra thành các bảng và ghi giá trị của chugs
+    - Tacách cột : Tách cột ra thành các cột
+    
+   + 2NF : SeCond Nomal Form : Mootjt bảng được gọi là 2NF nếu nó đạt chuẩn 1NF ngoài ra các thuộctinhshs không khóa phụ thuộc tính 
+   không khóa phụ thuộc hoàn toàn vào khoá chính , nghĩa là khoong tồn tại trường hợp  thuộc tính không khóa
+   phụ thuộc vào tập con của khóa
+   
+   + 3NF :Third Nomal Form : Một Bảng được gọi là 3NF nếu nó đạt chuẩn 2NF, các thuộc tính không khóa không phụ thuộc bắc cầu vào khóa chiính 
+   , nghĩa là không toon tại trường hợp thuộc tính không khooas phụ thuộc vào thuộc tính không khóa khác
+
+Baif Tập Hoành thành atm system JDBC
+viết data chuẩn hóa giữ liệu 1NF 2NF 3NF
+    
