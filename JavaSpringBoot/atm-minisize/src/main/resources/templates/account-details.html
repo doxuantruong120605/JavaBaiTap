@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi tiết tài khoản</title>
+</head>
+<body>
+<h1>Chi tiết tài khoản</h1>
+<p>Số tài khoản: <span th:text="${account.accountNumber}"></span></p>
+<p>Số dư: <span th:text="${account.balance}"></span></p>
+
+<h2>Nạp tiền</h2>
+<form th:action="@{/account/deposit}" method="post">
+    <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
+    <label>Số tiền:</label>
+    <input type="number" name="amount" step="0.01" required/>
+    <button type="submit">Nạp</button>
+</form>
+
+<h2>Rút tiền</h2>
+<form th:action="@{/account/withdraw}" method="post">
+    <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
+    <label>Số tiền:</label>
+    <input type="number" name="amount" step="0.01" required/>
+    <button type="submit">Rút</button>
+</form>
+
+<h2>Chuyển tiền</h2>
+<form th:action="@{/account/transfer}" method="post">
+    <input type="hidden" name="fromAccountNumber" th:value="${account.accountNumber}"/>
+    <label>Số tài khoản đích:</label>
+    <input type="text" name="toAccountNumber" required/>
+    <label>Số tiền:</label>
+    <input type="number" name="amount" step="0.01" required/>
+    <button type="submit">Chuyển</button>
+</form>
+
+<a th:href="@{/transaction/account/{id}(id=${account.id})}">Xem lịch sử giao dịch</a>
+<br/>
+<a th:href="@{/dashboard}">Quay lại</a>
+</body>
+</html>

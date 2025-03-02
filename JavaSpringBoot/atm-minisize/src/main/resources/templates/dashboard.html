@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Chào mừng, <span th:text="${user.username}"></span></h1>
+<h2>Danh sách tài khoản</h2>
+<ul>
+    <li th:each="account : ${user.accounts}">
+        <a th:href="@{/account/{number}(number=${account.accountNumber})}" th:text="${account.accountNumber}"></a>
+    </li>
+</ul>
+<form th:action="@{/create-account}" method="post">
+    <button type="submit">Tạo tài khoản mới</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button type="submit" class="dropdown-item">
+        <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
+        <span class="align-middle" data-key="t-logout">Logout</span>
+    </button>
+</form>
+</body>
+</html>
