@@ -2,40 +2,234 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Chi tiết tài khoản</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .account-container {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 cột đều nhau */
+            grid-template-rows: auto auto; /* 2 hàng */
+            gap: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            grid-column: 1 / 3; /* Tiêu đề chiếm cả 2 cột */
+            text-align: center;
+        }
+
+        .account-info {
+            background: #f9fbfc;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .account-info p {
+            font-size: 16px;
+            color: #34495e;
+            margin: 8px 0;
+        }
+
+        .account-info span {
+            font-weight: 600;
+            color: #2980b9;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3498db;
+            width: fit-content;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .transfer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #3498db;
+            font-size: 14px;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 80%;
+        }
+
+        .links a:hover {
+            background: #e8f1f8;
+            color: #2c3e50;
+        }
+
+        /* Hiệu ứng nền động */
+        .account-container:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            animation: pulse 15s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-<h1>Chi tiết tài khoản</h1>
-<p>Số tài khoản: <span th:text="${account.accountNumber}"></span></p>
-<p>Số dư: <span th:text="${account.balance}"></span></p>
+<div class="account-container">
+    <h1>Chi tiết tài khoản</h1>
 
-<h2>Nạp tiền</h2>
-<form th:action="@{/account/deposit}" method="post">
-    <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
-    <label>Số tiền:</label>
-    <input type="number" name="amount" step="0.01" required/>
-    <button type="submit">Nạp</button>
-</form>
+    <div class="account-info">
+        <p>Số tài khoản: <span th:text="${account.accountNumber}"></span></p>
+        <p>Số dư: <span th:text="${account.balance}"></span></p>
+    </div>
 
-<h2>Rút tiền</h2>
-<form th:action="@{/account/withdraw}" method="post">
-    <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
-    <label>Số tiền:</label>
-    <input type="number" name="amount" step="0.01" required/>
-    <button type="submit">Rút</button>
-</form>
+    <div class="form-section">
+        <h2>Nạp tiền</h2>
+        <form th:action="@{/account/deposit}" method="post">
+            <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
+            <label>Số tiền:</label>
+            <input type="number" name="amount" step="0.01" required/>
+            <button type="submit">Nạp</button>
+        </form>
+    </div>
 
-<h2>Chuyển tiền</h2>
-<form th:action="@{/account/transfer}" method="post">
-    <input type="hidden" name="fromAccountNumber" th:value="${account.accountNumber}"/>
-    <label>Số tài khoản đích:</label>
-    <input type="text" name="toAccountNumber" required/>
-    <label>Số tiền:</label>
-    <input type="number" name="amount" step="0.01" required/>
-    <button type="submit">Chuyển</button>
-</form>
+    <div class="form-section">
+        <h2>Rút tiền</h2>
+        <form th:action="@{/account/withdraw}" method="post">
+            <input type="hidden" name="accountNumber" th:value="${account.accountNumber}"/>
+            <label>Số tiền:</label>
+            <input type="number" name="amount" step="0.01" required/>
+            <button type="submit">Rút</button>
+        </form>
+    </div>
 
-<a th:href="@{/transaction/account/{id}(id=${account.id})}">Xem lịch sử giao dịch</a>
-<br/>
-<a th:href="@{/dashboard}">Quay lại</a>
+    <div class="transfer-links">
+        <h2>Chuyển tiền</h2>
+        <form th:action="@{/account/transfer}" method="post">
+            <input type="hidden" name="fromAccountNumber" th:value="${account.accountNumber}"/>
+            <label>Số tài khoản đích:</label>
+            <input type="text" name="toAccountNumber" required/>
+            <label>Số tiền:</label>
+            <input type="number" name="amount" step="0.01" required/>
+            <button type="submit">Chuyển</button>
+        </form>
+        <div class="links">
+            <a th:href="@{/transaction/account/{id}(id=${account.id})}">Xem lịch sử giao dịch</a>
+            <a th:href="@{/dashboard}">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
