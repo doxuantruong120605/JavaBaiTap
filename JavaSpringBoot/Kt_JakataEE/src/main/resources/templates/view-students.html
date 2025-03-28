@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View All Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px;
+    }
+    .edit-link {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    .edit-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<h1>All Students</h1>
+<a href="/" class="button">Back to Student Information</a>
+<a href="/add-student" class="button">+ Add New Student</a>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Student ID</th>
+    <th>Full Name</th>
+    <th>Address</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="student, iter : ${students}">
+    <td th:text="${iter.count}"></td>
+    <td th:text="${student.studentCode}"></td>
+    <td th:text="${student.fullName}"></td>
+    <td th:text="${student.address}"></td>
+    <td>
+      <a th:href="@{/edit-student/{id}(id=${student.studentId})}" class="edit-link">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

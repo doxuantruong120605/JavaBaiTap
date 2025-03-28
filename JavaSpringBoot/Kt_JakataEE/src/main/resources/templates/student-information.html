@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Information</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+<h1>Student Information</h1>
+<a href="/add-student" class="button">+ Student</a>
+<a href="/add-score" class="button">+ Score</a>
+<a href="/view-students" class="button">View All Students</a>
+<table>
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Student ID</th>
+    <th>Student Name</th>
+    <th>Subject Name</th>
+    <th>Score 1</th>
+    <th>Score 2</th>
+    <th>Credit</th>
+    <th>Grade</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="score, iter : ${studentScores}">
+    <td th:text="${iter.count}"></td>
+    <td th:text="${score.student.studentCode}"></td>
+    <td th:text="${score.student.fullName}"></td>
+    <td th:text="${score.subject.subjectName}"></td>
+    <td th:text="${score.score1}"></td>
+    <td th:text="${score.score2}"></td>
+    <td th:text="${score.subject.credit}"></td>
+    <td th:text="${score.calculateGrade()}"></td>
+    <td>
+      <a th:href="@{/edit-score/{id}(id=${score.studentScoreId})}">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
